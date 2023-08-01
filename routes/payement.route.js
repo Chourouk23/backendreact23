@@ -6,7 +6,7 @@ router.post('/', async (req, res) => {
     console.log(req.body)
     let status, error;
     const { token, amount } = req.body;
-    46
+  
     try {
         await Stripe.charges.create({
             source: token.id,

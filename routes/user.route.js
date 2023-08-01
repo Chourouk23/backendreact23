@@ -92,7 +92,7 @@ router.post('/login', async (req, res) => {
             let isCorrectPassword = await bcrypt.compare(password, user.password)
             if (isCorrectPassword) {
                 delete user._doc.password
-                if (!user.isActive) return res.status(200).send({
+                if (!user.isActive) return res.status(404).send({
                     success:
                         false, message: 'Your account is inactive, Please contact your administrator'
                 })
@@ -103,7 +103,7 @@ router.post('/login', async (req, res) => {
                 }) */
                 const token = generateAccessToken(user);
                 const refreshToken = generateRefreshToken(user);
-                return res.status(200).send({ success: true, user, token,refreshToken  })
+                return res.status(200).send({ success: true, user, token,refreshToken })
             } else {
                 return res.status(404).send({
                     success: false, message:
